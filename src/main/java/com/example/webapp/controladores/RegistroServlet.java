@@ -47,8 +47,8 @@ public class RegistroServlet extends HttpServlet {
 
             usuarioRepositorio.guardar(cliente);
 
-            req.setAttribute("userInserted", userInserted);
-            getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
+            req.getSession().setAttribute("username", name);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
         } else {
             req.setAttribute("errores", errores);
             getServletContext().getRequestDispatcher("/registro.jsp").forward(req, resp);

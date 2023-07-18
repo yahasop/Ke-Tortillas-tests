@@ -1,3 +1,9 @@
+<%@page contentType="text/html; ISO-8859-1" pageEncoding="utf-8" %>
+
+<%
+    String username = (String) session.getAttribute("username");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,10 +35,16 @@
         </label>
         <nav class="navbar">
             <ul>
-                <li><a href="index.html">INICIO</a></li>
-                <li><a href="Pagina_Productos.html">PRODUCTOS</a></li>
-                <li><a href="Pagina_CarritoCompras.html">CARRITO</a></li>
+                <li><a href="index.jsp">INICIO</a></li>
+                <li><a href="Pagina_Productos.jsp">PRODUCTOS</a></li>
+                <li><a href="Pagina_CarritoCompras.jsp">CARRITO</a></li>
                 <li><a href="#">CONTACTO</a></li>
+                <%if(username == null || username.isEmpty()){%>
+                <li><a href="registro.jsp">REGISTRO</a></li>
+                <%} else {%>
+                <li><a href="#">Hola, <%=username%>:)</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">Cerrar sesion</a></li>
+                <%}%>
             </ul>
         </nav>
     </div>
@@ -123,7 +135,7 @@
                         $000.00
                     </span>
             </div>
-            <button class="btn-pagar" onclick="window.location.href='formulario_Pago.html'">Pagar <i class="fa-solid fa-cart-shopping"></i></button>
+            <button class="btn-pagar" onclick="window.location.href='formulario_Pago.jsp'">Pagar <i class="fa-solid fa-cart-shopping"></i></button>
 
         </div>
     </div>

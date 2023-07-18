@@ -61,7 +61,7 @@ public class ModificarServlet extends HttpServlet {
             usuarioRepositorio.guardar(cliente);
 
             req.setAttribute("userModified", userModified);
-            getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
         } else {
             boolean userModified = false;
             req.setAttribute("errores", errores);

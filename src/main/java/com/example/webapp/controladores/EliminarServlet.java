@@ -29,6 +29,6 @@ public class EliminarServlet extends HttpServlet {
             }
         }
 
-        getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
+        getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }

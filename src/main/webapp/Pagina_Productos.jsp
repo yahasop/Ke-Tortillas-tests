@@ -1,3 +1,9 @@
+<%@page contentType="text/html; ISO-8859-1" pageEncoding="utf-8" %>
+
+<%
+String username = (String) session.getAttribute("username");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,11 +33,16 @@
         </label>
         <nav class="navbar">
             <ul>
-                <li><a href="index.html">INICIO</a></li>
-                <li><a href="Pagina_Productos.html">PRODUCTOS</a></li>
+                <li><a href="index.jsp">INICIO</a></li>
+                <li><a href="Pagina_Productos.jsp">PRODUCTOS</a></li>
                 <li><a href="#">SERVICIOS</a></li>
-                <li><a href="contactanos.html">CONTACTANOS</a></li>
+                <li><a href="contactanos.jsp">CONTACTANOS</a></li>
+                <%if(username == null || username.isEmpty()){%>
                 <li><a href="registro.jsp">REGISTRO</a></li>
+                <%} else {%>
+                <li><a href="#">Hola, <%=username%>:)</a></li>
+                <li><a href="${pageContext.request.contextPath}/logout">Cerrar sesion</a></li>
+                <%}%>
             </ul>
         </nav>
     </div>

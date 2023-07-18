@@ -2,6 +2,8 @@ package com.example.webapp.controladores;
 
 import com.example.webapp.modelos.Cliente;
 import com.example.webapp.repositorios.ClienteRepositorioImpl;
+import com.example.webapp.util.LoginService;
+import com.example.webapp.util.LoginServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,14 +14,19 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet({"/login","/login-modificar", "/login-eliminar"})
 public class loginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        LoginService auth = new LoginServiceImpl();
+        Optional<String> usernameOptional = auth.getUsername(req);
+
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        Boolean usuarioEcontrado = false;
+        String username = new String();
+        boolean usuarioEcontrado = false;
         boolean isModificar = req.getServletPath().endsWith("modificar");
         boolean isEliminar = req.getServletPath().endsWith("eliminar");
 
@@ -30,6 +37,7 @@ public class loginServlet extends HttpServlet {
         for(int i = 0; i < clientes.size(); i++){
             if(clientes.get(i).getEmail().equals(email) && clientes.get(i).getContrasenia().equals(password)){
                 usuarioEcontrado = true;
+                username = clientes.get(i).getNombre();
             }
         }
 
@@ -41,8 +49,8 @@ public class loginServlet extends HttpServlet {
                 req.setAttribute("email", email);
                 getServletContext().getRequestDispatcher("/eliminar-usuario").forward(req, resp);
             } else{
-                req.setAttribute("usuarioEncontrado", usuarioEcontrado);
-                getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
+                req.getSession().setAttribute("username", username);
+                getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
             }
         } else {
             Map<String, String> errores = new HashMap<>();
