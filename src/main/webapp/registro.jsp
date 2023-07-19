@@ -38,7 +38,7 @@
                 <li><a href="Pagina_Productos.jsp">PRODUCTOS</a></li>
                 <li><a href="#">SERVICIOS</a></li>
                 <li><a href="contactanos.jsp">CONTACTANOS</a></li>
-                <li><a href="registro.html">REGISTRO</a></li>
+                <li><a href="registro.jsp">REGISTRO</a></li>
             </ul>
         </nav>
     </div>

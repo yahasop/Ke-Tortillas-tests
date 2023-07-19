@@ -1,7 +1,10 @@
+<%@ page import="com.example.webapp.modelos.Carro" %>
+<%@ page import="com.example.webapp.modelos.ItemCarro" %>
 <%@page contentType="text/html; ISO-8859-1" pageEncoding="utf-8" %>
 
 <%
     String username = (String) session.getAttribute("username");
+    Carro carro = (Carro) session.getAttribute("carro");
 %>
 
 <!DOCTYPE html>
@@ -64,14 +67,13 @@
 </header>
 
 <section class="contenedor">
-
     <div class="contenedor-items">
         <div class="item">
             <span class="titulo-item">Tortilla Tradicional</span><br>
             <img src="IMG/Tortilla_Tradicional.jpeg" alt="" class="img-item" width="350px" height="350px">
             <span class="precio-item">$35.00</span>
             <p>Paquete de 10 tortillas de harina.</p>
-            <button class="boton-item">Agregar al carrito</button>
+            <a href="${pageContext.request.contextPath}/agregar-carro?id=1"><button class="boton-item">Agregar al carrito</button></a>
         </div>
         <div class="item">
             <span class="titulo-item">Tortilla para taco</span><br>
@@ -88,7 +90,9 @@
             <button class="boton-item">Agregar al carrito</button>
         </div>
     </div>
-
+    <%if(carro == null || carro.getItems().isEmpty());
+    else if((carro.findProducto("1").isPresent())){
+    if(carro.findProducto("1").get().getCantidad() > 0){%>
     <div class="carrito">
         <div class="header-carrito">
             <h2>Tu carrito</h2>
@@ -100,17 +104,18 @@
                 <div class="cassito-item-detalles">
                     <span class="carrito-item-titulo">Tortilla tradicional</span>
                     <div class="selector-cantidad">
-                        <i class="fa-solid fa-minus restar-cantidad"></i>
-                        <input type="text" value="1" class="carrito-item-cantidad" disabled>
-                        <i class="fa-solid fa-plus sumar-cantidad"></i>
+                        <a href="${pageContext.request.contextPath}/eliminar-carro?id=1"><i class="fa-solid fa-minus restar-cantidad"></i></a>
+                        <input type="text" value="<%out.print(carro.findProducto("1").get().getCantidad());%>" class="carrito-item-cantidad" disabled>
+                        <a href="${pageContext.request.contextPath}/agregar-carro?id=1"><i class="fa-solid fa-plus sumar-cantidad"></i></a>
                     </div>
-                    <span class="carrito-item-precio">$35.00</span>
+                    <span class="carrito-item-precio"><%out.print("$" + (carro.findProducto("1").get().getCantidad() * 35) + ".00");%></span>
                 </div>
                 <span class="btn-eliminar">
-                        <i class="fa-solid fa-trash-can"></i>
+                        <a href="${pageContext.request.contextPath}/eliminar-carro?id=1&all=1"><i class="fa-solid fa-trash-can"></i></a>
                     </span>
             </div>
-
+            <%}%>
+            <%} else if((carro.findProducto("2").isPresent()) || (carro.findProducto("2").get().getCantidad() > 0)){%>
             <div class="carrito-item">
                 <img src="IMG/Tortilla_Taco.jpeg" alt="" width="80px">
                 <div class="cassito-item-detalles">
@@ -126,18 +131,23 @@
                         <i class="fa-solid fa-trash-can"></i>
                     </span>
             </div>
+            <%}%>
         </div>
 
+        <%if(carro != null){
+        if(!carro.getItems().isEmpty()){%>
         <div class="carrito-total">
             <div class="fila">
                 <strong>El total de tu compra es: </strong>
                 <span class="carrito-precio-total">
-                        $000.00
+                        <%out.print("$" + (carro.getTotal()) + ".00");%>
                     </span>
             </div>
-            <button class="btn-pagar" onclick="window.location.href='formulario_Pago.jsp'">Pagar <i class="fa-solid fa-cart-shopping"></i></button>
+            <a href="formulario_Pago.jsp"><button class="btn-pagar">Pagar<i class="fa-solid fa-cart-shopping"></i></button></a>
 
         </div>
+        <%}
+        }%>
     </div>
 </section>
 </body>
