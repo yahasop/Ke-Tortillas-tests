@@ -32,7 +32,6 @@ public class TransferFTP{
             File archivoLocal = new File(rutaArchivoLocal);
             fis = new FileInputStream(archivoLocal);
 
-            ftpClient.enterRemotePassiveMode();
             ftpClient.enterLocalPassiveMode();
 
             ftpClient.storeFile(rutaArchivoRemota, fis);

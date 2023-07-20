@@ -25,14 +25,16 @@ public class EliminarCarroServlet extends HttpServlet {
         Optional<Producto> producto = service.porId(id);
         HttpSession session = req.getSession();
         Carro carro = (Carro) session.getAttribute("carro");
-        if (producto.isPresent()) {
+        if (producto.isPresent() && carro.findProducto(String.valueOf(id)).get().getCantidad() != 1) {
             carro.findProducto(String.valueOf(id)).get().setCantidad(carro.findProducto(String.valueOf(id)).get().getCantidad() - 1);
             if(carro.findProducto(String.valueOf(id)).get().getCantidad() == 0){
                 carro.removeProducto(String.valueOf(id));
             }
         }
-        if (Optional.of(req.getParameter("all")).isPresent()) {
-            carro.removeProducto(String.valueOf(id));
+        if (Integer.valueOf(req.getParameter("all")) == 1) {
+            if (carro.findProducto(String.valueOf(id)).get().getCantidad() != 0){
+                carro.removeProducto(String.valueOf(id));
+            }
         }
         resp.sendRedirect("Pagina_CarritoCompras.jsp");
     }

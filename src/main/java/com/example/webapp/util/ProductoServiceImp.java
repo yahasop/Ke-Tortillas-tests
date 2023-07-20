@@ -9,9 +9,9 @@ import java.util.Optional;
 public class ProductoServiceImp implements ProductoService{
     @Override
     public List<Producto> listar() {
-        return Arrays.asList(new Producto(1L,"notebook","computacion", 175000),
-                new Producto(2L, "mesa escritorio", "oficina", 100),
-                new Producto(3L, "teclado mecanico", "computacion", 40000));
+        return Arrays.asList(new Producto(1L,"Tortilla tradicional","alimentos", 35),
+                new Producto(2L, "Tortilla para taco", "alimentos", 40),
+                new Producto(3L, "Tortilla sobaquera", "alimentos", 120));
     }
 
     @Override

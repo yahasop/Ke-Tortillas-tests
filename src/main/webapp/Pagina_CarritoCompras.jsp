@@ -80,31 +80,35 @@
             <img src="IMG/Tortilla_Taco.jpeg" alt="" class="img-item" width="350px" height="350px">
             <span class="precio-item">$40.00</span>
             <p>Paquete de 10 tortillas para taco</p>
-            <button class="boton-item">Agregar al carrito</button>
+            <a href="${pageContext.request.contextPath}/agregar-carro?id=2"><button class="boton-item">Agregar al carrito</button></a>
         </div>
         <div class="item">
             <span class="titulo-item">Tortilla sobaquera</span><br>
             <img src="IMG/Tortilla_Sobaquera.jpeg" alt="" class="img-item" width="350px" height="350px">
             <span class="precio-item">$120.00</span>
             <p>Paquete de 5 tortillas para burro</p>
-            <button class="boton-item">Agregar al carrito</button>
+            <a href="${pageContext.request.contextPath}/agregar-carro?id=3"><button class="boton-item">Agregar al carrito</button></a>
         </div>
     </div>
-    <%if(carro == null || carro.getItems().isEmpty());
-    else if((carro.findProducto("1").isPresent())){
-    if(carro.findProducto("1").get().getCantidad() > 0){%>
+    <%if(carro != null){%>
+    <%if(!carro.getItems().isEmpty()){%>
     <div class="carrito">
-        <div class="header-carrito">
-            <h2>Tu carrito</h2>
-        </div>
+    <div class="header-carrito">
+    <h2>Tu carrito</h2>
+    </div>
 
-        <div class="carrito-items">
-            <div class="carrito-item">
+    <div class="carrito-items">
+    <%}
+    }%>
+        <%if(carro != null){
+        if((carro.findProducto("1").isPresent())){
+        if(carro.findProducto("1").get().getCantidad() > 0){%>
+        <div class="carrito-item">
                 <img src="IMG/Tortilla_Tradicional.jpeg" alt="" width="80px">
                 <div class="cassito-item-detalles">
                     <span class="carrito-item-titulo">Tortilla tradicional</span>
                     <div class="selector-cantidad">
-                        <a href="${pageContext.request.contextPath}/eliminar-carro?id=1"><i class="fa-solid fa-minus restar-cantidad"></i></a>
+                        <a href="${pageContext.request.contextPath}/eliminar-carro?id=1&all=0"><i class="fa-solid fa-minus restar-cantidad"></i></a>
                         <input type="text" value="<%out.print(carro.findProducto("1").get().getCantidad());%>" class="carrito-item-cantidad" disabled>
                         <a href="${pageContext.request.contextPath}/agregar-carro?id=1"><i class="fa-solid fa-plus sumar-cantidad"></i></a>
                     </div>
@@ -115,24 +119,54 @@
                     </span>
             </div>
             <%}%>
-            <%} else if((carro.findProducto("2").isPresent()) || (carro.findProducto("2").get().getCantidad() > 0)){%>
+            <%}%>
+            <%} if(carro != null){
+                if(carro.findProducto("2").isPresent()){
+                if (carro.findProducto("2").get().getCantidad() > 0){%>
             <div class="carrito-item">
                 <img src="IMG/Tortilla_Taco.jpeg" alt="" width="80px">
                 <div class="cassito-item-detalles">
                     <span class="carrito-item-titulo">Tortilla Taco</span>
                     <div class="selector-cantidad">
-                        <i class="fa-solid fa-minus restar-cantidad"></i>
-                        <input type="text" value="2" class="carrito-item-cantidad" disabled>
-                        <i class="fa-solid fa-plus sumar-cantidad"></i>
+                        <a href="${pageContext.request.contextPath}/eliminar-carro?id=2&all=0"><i class="fa-solid fa-minus restar-cantidad"></i></a>
+                        <input type="text" value="<%out.print(carro.findProducto("2").get().getCantidad());%>" class="carrito-item-cantidad" disabled>
+                        <a href="${pageContext.request.contextPath}/agregar-carro?id=2"><i class="fa-solid fa-plus sumar-cantidad"></i></a>
                     </div>
                     <span class="carrito-item-precio">$40.00</span>
                 </div>
                 <span class="btn-eliminar">
-                        <i class="fa-solid fa-trash-can"></i>
+                        <a href="${pageContext.request.contextPath}/eliminar-carro?id=2&all=1"><i class="fa-solid fa-trash-can"></i></a>
                     </span>
             </div>
             <%}%>
+            <%}%>
+            <%}if(carro != null){
+                if(carro.findProducto("3").isPresent()){
+                    if (carro.findProducto("3").get().getCantidad() > 0){%>
+        <div class="carrito-item">
+            <img src="IMG/Tortilla_Sobaquera.jpeg" alt="" width="80px">
+            <div class="cassito-item-detalles">
+                <span class="carrito-item-titulo">Tortilla Sobaquera</span>
+                <div class="selector-cantidad">
+                    <a href="${pageContext.request.contextPath}/eliminar-carro?id=3&all=0"><i class="fa-solid fa-minus restar-cantidad"></i></a>
+                    <input type="text" value="<%out.print(carro.findProducto("3").get().getCantidad());%>" class="carrito-item-cantidad" disabled>
+                    <a href="${pageContext.request.contextPath}/agregar-carro?id=3"><i class="fa-solid fa-plus sumar-cantidad"></i></a>
+                </div>
+                <span class="carrito-item-precio">$120.00</span>
+            </div>
+            <span class="btn-eliminar">
+                        <a href="${pageContext.request.contextPath}/eliminar-carro?id=3&all=1"><i class="fa-solid fa-trash-can"></i></a>
+                    </span>
         </div>
+        <%}%>
+        <%}%>
+        <%}%>
+
+        <%if(carro != null){%>
+        <%if(!carro.getItems().isEmpty()){%>
+        </div>
+        <%}
+        }%>
 
         <%if(carro != null){
         if(!carro.getItems().isEmpty()){%>
@@ -143,7 +177,7 @@
                         <%out.print("$" + (carro.getTotal()) + ".00");%>
                     </span>
             </div>
-            <a href="formulario_Pago.jsp"><button class="btn-pagar">Pagar<i class="fa-solid fa-cart-shopping"></i></button></a>
+            <a href="${pageContext.request.contextPath}/generar-pedido"><button class="btn-pagar">Generar pedido<i class="fa-solid fa-cart-shopping"></i></button></a>
 
         </div>
         <%}
