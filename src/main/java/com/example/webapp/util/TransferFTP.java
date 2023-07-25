@@ -8,11 +8,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class TransferFTP{
-    public static void main(String[] args) {
-        String direccionFTP = "192.168.56.1";
+    public static void TransferirFTP(String nombre) {
+        String direccionFTP = "10.0.0.8";
         String usuario = "mario";
         String contrasena = "12345";
-        String rutaArchivoLocal = "C:\\Users\\Owner\\Downloads\\Directorios.pdf";
+        String rutaArchivoLocal = "C:\\Users\\Owner\\Downloads\\" + nombre + "_pedido.pdf";
         String rutaArchivoRemota = "/Directorios.pdf";
 
         enviarArchivo(direccionFTP, usuario, contrasena, rutaArchivoLocal, rutaArchivoRemota);

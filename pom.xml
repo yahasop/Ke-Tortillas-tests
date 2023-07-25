@@ -54,6 +54,11 @@
           <version>20.11</version>
       </dependency>
       <dependency>
+          <groupId>com.sun.mail</groupId>
+          <artifactId>javax.mail</artifactId>
+          <version>1.6.2</version> <!-- Cambiar a la versión más reciente disponible -->
+      </dependency>
+      <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
         <version>${junit.version}</version>
