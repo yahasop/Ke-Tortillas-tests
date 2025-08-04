@@ -1,9 +1,7 @@
-FROM eclipse-temurin:17-jre-alpine
+FROM tomcat:latest
 
-WORKDIR /app
-
-COPY ./target/*.war /app/tortillas.war
+COPY ./target/*.war /usr/local/tomcat/webapps/tortillas.war
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "tortillas.war"]
+CMD ["catalina.sh", "run"]
