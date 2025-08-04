@@ -2,8 +2,8 @@ FROM eclipse-temurin:17-jre-alpine
 
 WORKDIR /app
 
-COPY ./target/*.jar /app/tortillas.jar
+COPY ./target/*.war /app/tortillas.war
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "tortillas.jar"]
+ENTRYPOINT ["java", "-jar", "tortillas.war"]
